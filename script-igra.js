@@ -16,18 +16,12 @@ function inicijalizacija() {
 
 let naPotezu = "blue";
 let vremeIsteklo = 1;
-let kraj = 0;
+let kraj = false;
 let otvorioPolje = false;
 let poeniBlue = 0;
 let poeniRed = 0;
-
-/*function igra() {
-    
-    while(!kraj) {
-
-    }
-}
-*/
+let otvorenaPolja = new Array(20).fill(0);
+let brojPoena = 0;
 
 function zapocni() {
     handler = setInterval(stoperica, 1000);
@@ -48,6 +42,12 @@ function zaustavi() {
         zapocni();
     }
     else {
+        if(poeniBlue > poeniRed)
+            alert("Pobednik je PLAVI takmičar - " + localStorage.getItem("igrac1") + "! Čestitamo!");
+        else if(poeniBlue < poeniRed)
+        alert("Pobednik je CRVENI takmičar - " + localStorage.getItem("igrac2") + "! Čestitamo!");
+        else
+            alert("Rezultat je nerešen, čestitke igračima!");
         document.getElementById("brojac").innerHTML = "kraj!";
     }
 }
@@ -57,16 +57,23 @@ function zaustaviIgru() {
     if(vremeIsteklo) {
         alert("Isteklo je 4 minuta!");
     }
-    kraj = 1;
+    kraj = true;
+    zaustavi();
 }
+
+
 
 $(document).ready(function() { 
 
     $(".buttonkolona").click(function() {
-        if(!otvorioPolje) {
+        if(otvorenaPolja[$(this).attr("id")]) {
+            alert("Polje je vec otvoreno!");
+        }
+        else if(!otvorioPolje) {
             $(this).css("background-color", "rgb(196, 185, 185)");
             //$(this).css("color", "white");
             $(this).text(asocijacija[$(this).attr("id")]);
+            otvorenaPolja[$(this).attr("id")] = 1;
             otvorioPolje = true;
         }
         else {
@@ -75,7 +82,7 @@ $(document).ready(function() {
     });
 
     $(".inputPolje").change(function() {
-        alert($(this).val());
+        proveraUnosa($(this).attr("id"),$(this).val());
     });
 
     $("#daljeButton").click(function() {
@@ -86,6 +93,154 @@ $(document).ready(function() {
         otvorioPolje = 0;
         zaustavi();
     });
+
+    function proveraUnosa(id, text) {
+        if(asocijacija[id] == text && !otvorenaPolja[id] && otvorioPolje) {
+            if(id != 0) {
+                farbanjePolja(id);
+                racunanjePoena(id);
+                otvaranjePolja(id);
+            }
+            else {
+                farbanjePolja(0);
+                racunanjePoena(0);
+                otvaranjePolja(0);
+                kraj = true;
+                zaustavi();
+            }
+        }
+        else if(otvorenaPolja[id]) {
+            alert("Polje je vec pogodjeno!");
+            document.getElementById(id).value = asocijacija[id];
+        }
+        else if(!otvorioPolje) {
+            alert("Morate prvo da otvorite polje!");
+            document.getElementById(id).value = "";
+        }
+        else {
+            alert("Netacno!");
+            document.getElementById(id).value = "";
+            document.getElementById("daljeButton").click();
+        }
+    }
+
+    function farbanjePolja(id) {
+        if(id != 0) {
+            $("#" + (id - 1)).css("background-color", naPotezu);
+            $("#" + (id - 2)).css("background-color", naPotezu);
+            $("#" + (id - 3)).css("background-color", naPotezu);
+            $("#" + (id - 4)).css("background-color", naPotezu);
+            $("#" + (id)).css("background-color", naPotezu);
+        }
+        else {
+            $("#" + (id)).css("background-color", naPotezu);
+            if(!otvorenaPolja[5])
+                farbanjePolja(5);
+            if(!otvorenaPolja[10])
+                farbanjePolja(10);
+            if(!otvorenaPolja[15])
+                farbanjePolja(15);
+            if(!otvorenaPolja[20])
+                farbanjePolja(20);
+        }
+    }
+
+    function racunanjePoena(id) {
+        if(id != 0) {
+            brojPoena = 5;
+            if(!otvorenaPolja[id - 1])
+                brojPoena++;
+            if(!otvorenaPolja[id - 2])
+                brojPoena++;
+            if(!otvorenaPolja[id - 3])
+                brojPoena++;
+            if(!otvorenaPolja[id - 4])
+                brojPoena++;
+            if(naPotezu == "blue") {
+                poeniBlue += brojPoena;
+                document.getElementById("poeniBlue").value = poeniBlue;
+                brojPoena = 0;
+            }
+            else {
+                poeniRed += brojPoena;
+                document.getElementById("poeniRed").value = poeniRed;
+                brojPoena = 0;
+            }
+        }
+        else {
+            if(!otvorenaPolja[5]) {
+                racunanjePoena(5);
+                if(naPotezu == "blue")
+                    poeniBlue -= 5;
+                else
+                    poeniRed -= 5;
+            }
+            if(!otvorenaPolja[10]) {
+                racunanjePoena(10);
+                if(naPotezu == "blue")
+                    poeniBlue -= 5;
+                else
+                    poeniRed -= 5;
+            }
+            if(!otvorenaPolja[15]) {
+                racunanjePoena(15);
+                if(naPotezu == "blue")
+                    poeniBlue -= 5;
+                else
+                    poeniRed -= 5;
+            }
+            if(!otvorenaPolja[20]) {
+                racunanjePoena(20);
+                if(naPotezu == "blue")
+                    poeniBlue -= 5;
+                else
+                    poeniRed -= 5;
+            }
+            if(naPotezu == "blue")
+            poeniBlue += 10;
+        else
+            poeniRed += 10;
+            document.getElementById("poeniBlue").value = poeniBlue;
+            document.getElementById("poeniRed").value = poeniRed;
+        }
+    }
+
+    function otvaranjePolja(id) {
+        if(id != 0) {
+            otvorenaPolja[id] = 1;
+                $("#" + (id - 1)).text(asocijacija[id - 1]);
+                otvorenaPolja[id - 1] = 1;
+                $("#" + (id - 2)).text(asocijacija[id - 2]);
+                otvorenaPolja[id - 2] = 1;
+                $("#" + (id - 3)).text(asocijacija[id - 3]);
+                otvorenaPolja[id - 3] = 1;
+                $("#" + (id - 4)).text(asocijacija[id - 4]);
+                otvorenaPolja[id - 4] = 1;
+        }
+        else {
+            if(!otvorenaPolja[5]) {
+                otvaranjePolja(5);
+                document.getElementById("5").value = asocijacija[5];
+                otvorenaPolja[5] = 1;
+            }
+            if(!otvorenaPolja[10]) {
+                otvaranjePolja(10);
+                document.getElementById("10").value = asocijacija[10];
+                otvorenaPolja[10] = 1;
+            }
+            if(!otvorenaPolja[15]) {
+                otvaranjePolja(15);
+                document.getElementById("15").value = asocijacija[15];
+                otvorenaPolja[15] = 1;
+            }
+            if(!otvorenaPolja[20]) {
+                otvaranjePolja(20);
+                document.getElementById("20").value = asocijacija[20];
+                otvorenaPolja[20] = 1;
+            }
+        }
+    }
+
 });
 
 
