@@ -14,7 +14,7 @@ function proveraUnosaImena() {
         "Plavi takmičar: <b>" + igrac1 + "</b>" + 
         "<br>Crveni takmičar: <b>" + igrac2 + "</b>" + "<br> Ucitavanje igre..";
 
-        let asocijacija1 = ["ALEKSANDRA IVOSEV, RUKA, 7.62, META, CZ 99, PISTOLJ, ZLATNA, ORDEN, GRUDI, BRONZANA, MEDALJA, BALASEVIC, PETROVARADIN, DUNAV, EXIT, NOVI SAD, FALKONSI, OLIMPIJADA, KOKA KOLA, DZORDZIJA, ATLANTA"];
+        let asocijacija1 = ["ALEKSANDRA IVOŠEV, RUKA, 7.62, META, CZ 99, PIŠTOLJ, ZLATNA, ORDEN, GRUDI, BRONZANA, MEDALJA, BALAŠEVIĆ, PETROVARADIN, DUNAV, EXIT, NOVI SAD, FALKONSI, OLIMPIJADA, KOKA KOLA, DŽORDŽIJA, ATLANTA"];
         localStorage.setItem("asocijacija1", asocijacija1);
         let asocijacija2 = ["BULEVAR, OSMEH, DUNAV, IZBOR, PROSTRAN, ŠIROK, LIPE, KUĆE, GLAVNA, SLEPA, ULICA, SAGA, BOGOVI, PRVI, VEČE, SUMRAK, TABAK, ROTO, OSFET, DUBOKA, ŠTAMPA"];
         localStorage.setItem("asocijacija2", asocijacija2);
