@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asocijacije-Uputstvo</title>
+    <link rel="stylesheet" href="stil-uputstvo.css">
+</head>
+<body class="lbcolor">
+    <div class="centerdiv">
+        <h1 class="h1_50px">Asocijacije</h1>
+    </div>
+    <div class="centerdiv">
+        <h3 >U igri asocijacije postoje četiri sporedne asocijacije, pomoću kojih treba rešiti glavnu <br>
+            asocijaciju. Rešenje svake sporedne asocijacije je neki pojam na koji asociraju četiri pojma u njegovoj<br>
+            koloni. Na početku su svi pojmovi skriveni, a igrači otkrivaju jedan po jedan. Igru igraju dva igrača.<br>
+            Nakon otkrivanja pojma, igrač ima mogućnost da pogađa ili glavnu ili sporednu asocijaciju. Za<br>
+            rešenje sporedne asocijacije se dobija 5 poena plus broj neotkrivenih pojmova u njegovoj koloni. Za<br>
+            rešenje glavne asocijacije se dobija 10 poena plus broj svih neotkrivenih pojmova. Svaki igrač na<br>
+            svom potezu ima maksimalno 10 sekundi, a ukoliko ne želi u tom potezu da pogađa asocijaciju može<br>
+            da pritisne dugme Dalje i da ranije završi potez. <br><br><br>
+        
+            Igra teče tako što igrači naizmenično pokušavaju da pogode asocijacije. Na svakom potezu igrač<br>
+            otvara jedno od zatvorenih polja, i ima mogućnost da pogađa ili sporednu ili glavnu asocijaciju<br>
+            unosom teksta u polje za rešenje kolone ili u polje za glavnu asocijaciju. Ukoliko uspešno pogodi,<br>
+            dobija odgovarajući broj poena, i pogođena kolona/ili glavna asocijacija se boji u njegovu boju.<br>
+            Ukoliko ne pogodi tačno ili pritisne dugme Dalje, vreme za tog igrača se prekida, nastavlja se vreme<br>
+            protivnika i tada on igra svoj potez. Igra se završava kada se pogodi finalna asocijacija ili nakon<br>
+            četiri minuta od početka igre, i zatim se prikazuje ekran sa poenima igrača. Pobednik je onaj igrač<br>
+            koji ima više poena. <br><br><br><br>
+        </h3>
+    </div>
+    <div class="centerdiv">
+        <h4>
+            Ukoliko ste se upoznali sa pravilima igre, molimo Vas da unesete svoje ime:
+        </h4>
+    </div>
+    <div class="centerdiv">
+        Igrac 1:
+        <input type="text" id="igrac1name"> <br><br>
+        Igrac 2:
+        <input type="text" id="igrac2name"> <br><br>
+        <button onclick="proveraUnosaImena()">IGRAJ!</button> <br><br>
+    </div>
+    <div id="igraci" style="font-size: 20px;">
+    </div>
+    <br>
+    <div id="vreme" style="font-size: 18px;">
+    </div>
+</body>
+<script src="script-uputstvo.js"></script>
+</html>
