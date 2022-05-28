@@ -4,7 +4,7 @@ let vreme = 10;
 
 function inicijalizacija() {
 
-    let random = (Math.random()) * 5;
+    let random = Math.random() * 5 + 1;
     random = Math.floor(random);
     let odabranaAsocijacija = "asocijacija" + random;
     document.getElementById("printIgraci").innerHTML = 
@@ -14,6 +14,8 @@ function inicijalizacija() {
     alert("Igra pocinje i traje maksimalno 4 minuta");
 
     document.getElementById("brojac").innerHTML = "" + vreme;
+    document.getElementById("igracNaPotezu").innerHTML = "Na potezu je plavi takmičar";
+    document.getElementById("igracNaPotezu").style.color = "blue";
     zapocni();
     setTimeout(zaustaviIgru, 240000);
 }
@@ -46,24 +48,38 @@ function zaustavi() {
         zapocni();
     }
     else {
-        if(poeniBlue > poeniRed)
+        if(poeniBlue > poeniRed) {
             alert("Pobednik je PLAVI takmičar - " + localStorage.getItem("igrac1") + "! Čestitamo!");
-        else if(poeniBlue < poeniRed)
-        alert("Pobednik je CRVENI takmičar - " + localStorage.getItem("igrac2") + "! Čestitamo!");
-        else
+            document.getElementById("igracNaPotezu").innerHTML = "Pobednik je plavi takmičar. Poeni: " + poeniBlue;
+            document.getElementById("igracNaPotezu").style.color = "blue";
+        }
+        else if(poeniBlue < poeniRed) {
+            alert("Pobednik je CRVENI takmičar - " + localStorage.getItem("igrac2") + "! Čestitamo!");
+            document.getElementById("igracNaPotezu").innerHTML = "Pobednik je crveni takmičar. Poeni: " + poeniRed;
+            document.getElementById("igracNaPotezu").style.color = "red";
+        }
+        else {
             alert("Rezultat je nerešen, čestitke igračima!");
+            document.getElementById("igracNaPotezu").innerHTML = "Nerešeno!";
+            document.getElementById("igracNaPotezu").style.color = "black";
+        }
+            
         document.getElementById("brojac").innerHTML = "kraj!";
     }
 }
 
 
 function zaustaviIgru() {
-    if(vremeIsteklo) {
-        alert("Isteklo je 4 minuta!");
+    if(!kraj) {
+        if(vremeIsteklo) {
+            alert("Isteklo je 4 minuta!");
+        }
+        kraj = true;
+        zaustavi();
     }
-    kraj = true;
-    zaustavi();
 }
+    
+   
 
 
 
@@ -75,7 +91,6 @@ $(document).ready(function() {
         }
         else if(!otvorioPolje) {
             $(this).css("background-color", "rgb(196, 185, 185)");
-            //$(this).css("color", "white");
             $(this).text(asocijacija[$(this).attr("id")]);
             otvorenaPolja[$(this).attr("id")] = 1;
             otvorioPolje = true;
@@ -90,10 +105,21 @@ $(document).ready(function() {
     });
 
     $("#daljeButton").click(function() {
-        if(naPotezu == "blue")
+        if(naPotezu == "blue") {
             naPotezu = "red";
-        else
+            if(!kraj) {
+                document.getElementById("igracNaPotezu").innerHTML = "Na potezu je crveni takmičar";
+                document.getElementById("igracNaPotezu").style.color = "red";
+            }
+
+        }
+        else {
             naPotezu = "blue";
+            if(!kraj) {
+                document.getElementById("igracNaPotezu").innerHTML = "Na potezu je plavi takmičar";
+                document.getElementById("igracNaPotezu").style.color = "blue";
+            }
+        }
         otvorioPolje = 0;
         zaustavi();
     });
@@ -106,12 +132,11 @@ $(document).ready(function() {
                 otvaranjePolja(id);
             }
             else {
-                kraj = true;
-                zaustavi();
                 farbanjePolja(0);
                 racunanjePoena(0);
                 otvaranjePolja(0);
-
+                kraj = true;
+                zaustavi();
             }
         }
         else if(otvorenaPolja[id]) {
@@ -131,14 +156,14 @@ $(document).ready(function() {
 
     function farbanjePolja(id) {
         if(id != 0) {
-            $("#" + (id - 1)).css("background-color", naPotezu);
-            $("#" + (id - 2)).css("background-color", naPotezu);
-            $("#" + (id - 3)).css("background-color", naPotezu);
-            $("#" + (id - 4)).css("background-color", naPotezu);
-            $("#" + (id)).css("background-color", naPotezu);
+            $("#" + (id - 1)).css("background-color", naPotezu).css("color", "white");
+            $("#" + (id - 2)).css("background-color", naPotezu).css("color", "white");
+            $("#" + (id - 3)).css("background-color", naPotezu).css("color", "white");
+            $("#" + (id - 4)).css("background-color", naPotezu).css("color", "white");
+            $("#" + (id)).css("background-color", naPotezu).css("color", "white");
         }
         else {
-            $("#" + (id)).css("background-color", naPotezu);
+            $("#" + (id)).css("background-color", naPotezu).css("color", "white");
             if(!otvorenaPolja[5])
                 farbanjePolja(5);
             if(!otvorenaPolja[10])
