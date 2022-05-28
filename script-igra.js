@@ -3,10 +3,14 @@ let asocijacija;
 let vreme = 10;
 
 function inicijalizacija() {
+
+    let random = (Math.random()) * 5;
+    random = Math.floor(random);
+    let odabranaAsocijacija = "asocijacija" + random;
     document.getElementById("printIgraci").innerHTML = 
     "Igrac1: <b>" + localStorage.getItem("igrac1") + "</b>" + 
     "<br>Igrac2: <b>" + localStorage.getItem("igrac2") + "</b>";
-    asocijacija = localStorage.getItem("asocijacija1").split(",");
+    asocijacija = localStorage.getItem(odabranaAsocijacija).split(", ");
     alert("Igra pocinje i traje maksimalno 4 minuta");
 
     document.getElementById("brojac").innerHTML = "" + vreme;
@@ -102,11 +106,12 @@ $(document).ready(function() {
                 otvaranjePolja(id);
             }
             else {
+                kraj = true;
+                zaustavi();
                 farbanjePolja(0);
                 racunanjePoena(0);
                 otvaranjePolja(0);
-                kraj = true;
-                zaustavi();
+
             }
         }
         else if(otvorenaPolja[id]) {
@@ -242,5 +247,3 @@ $(document).ready(function() {
     }
 
 });
-
-

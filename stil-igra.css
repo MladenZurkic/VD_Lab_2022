@@ -26,3 +26,41 @@ input {
 #brojac {
     font-weight: bold;
 }
+
+
+#poeniBlue {
+    background-color: blue; 
+    color: white;
+    width: 30%;
+}
+
+#poeniRed {
+    background-color: red; 
+    color: white;
+    width: 30%;
+}
+
+.width40 {
+    width: 40%;
+}
+
+.width50 {
+    width: 50%;
+}
+
+.width65 {
+    width: 65%;
+}
+
+.width85 {
+    width: 85%;
+}
+
+.width90 {
+    width: 90%;
+}
+
+.kolonaResenje {
+    width: 85%; 
+    border-width: 2px;
+}
